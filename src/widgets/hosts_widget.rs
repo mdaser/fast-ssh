@@ -19,7 +19,12 @@ impl HostsWidget {
     pub fn render(app: &mut App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
         let block = block::new(" Hosts ");
         let header = HostsWidget::create_header();
-        let rows = HostsWidget::create_rows_from_items(&app.get_items_based_on_mode());
+        let items = app.get_items_based_on_mode();
+        let rows = HostsWidget::create_rows_from_items(&items);
+
+        if app.host_state.selected().unwrap_or(0) >= items.len() {
+            app.host_state.select(Some(0));
+        }
 
         let t = Table::new(rows)
             .header(header)
