@@ -61,13 +61,15 @@ impl ConfigWidget {
     }
 
     fn ssh_group_item_to_spans(config: &SshGroupItem) -> Vec<Spans<'_>> {
-        let mut spans = vec![Spans::from(vec![
+        let mut spans = Vec::new();
+
+        spans.push(Spans::from(vec![
             Span::styled("Host ", Style::default().fg(THEME.text_primary())),
             Span::styled(
                 &config.full_name,
                 Style::default().fg(THEME.text_secondary()),
             ),
-        ])];
+        ]));
 
         config.host_config.iter().for_each(|(key, value)| {
             spans.push(Spans::from(vec![
@@ -77,6 +79,20 @@ impl ConfigWidget {
                 Span::styled(value, Style::default().fg(THEME.text_secondary())),
             ]));
         });
+
+        if let Some(comment) = &config.comment {
+            spans.push(Spans::from(vec![Span::styled(
+                "  Notes",
+                Style::default().fg(THEME.text_primary()),
+            )]));
+
+            for line in comment.lines() {
+                spans.push(Spans::from(vec![
+                    Span::styled("    ", Style::default().fg(THEME.text_primary())),
+                    Span::styled(line, Style::default().fg(THEME.text_secondary())),
+                ]));
+            }
+        }
 
         spans.push(Spans::from(vec![Span::styled(
             "\n",
