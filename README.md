@@ -19,7 +19,7 @@
     <br/>
 </div>
 
-![](https://i.imgur.com/pVf2hES.png)
+![A Screenshot of FastSSH Light Theme](doc/FastSSH-Light.png)
 
 # Installation
 Download the latest release for your platform [here](https://github.com/Julien-R44/fast-ssh/releases), extract it and put it in a directory that is in your PATH (Packages managers coming soon). For example:
