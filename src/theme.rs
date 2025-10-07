@@ -32,8 +32,10 @@ macro_rules! def_theme_struct_with_defaults {
 }
 
 def_theme_struct_with_defaults!(
-    text_primary => Color::White,
-    text_secondary => Color::Magenta,
+    text_primary => Color::Blue,
+    text_secondary => Color::Black,
+    bg_primary => Color::LightBlue,
+    bg_secondary => Color::LightBlue,
     border_color => Color::Magenta
 );
 

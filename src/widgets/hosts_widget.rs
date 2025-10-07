@@ -24,7 +24,11 @@ impl HostsWidget {
         let t = Table::new(rows)
             .header(header)
             .block(block)
-            .highlight_style(Style::default().fg(THEME.text_primary()))
+            .highlight_style(
+                Style::default()
+                    .fg(THEME.text_primary())
+                    .bg(THEME.bg_primary()),
+            )
             .style(Style::default().fg(THEME.text_secondary()))
             .highlight_symbol(">> ")
             .widths(&[
@@ -60,7 +64,7 @@ impl HostsWidget {
                     Cell::from(item.connection_count.to_string()).style(style),
                 ];
 
-                Row::new(cells).height(1).bottom_margin(1)
+                Row::new(cells).height(1).bottom_margin(0)
             })
             .collect::<Vec<Row<'static>>>()
     }

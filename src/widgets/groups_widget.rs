@@ -30,7 +30,7 @@ impl GroupsWidget {
             .highlight_style(
                 Style::default()
                     .add_modifier(Modifier::BOLD)
-                    .bg(THEME.text_primary()),
+                    .bg(THEME.bg_secondary()),
             );
 
         frame.render_widget(tabs, area);
