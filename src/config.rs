@@ -59,7 +59,9 @@ const DEFAULT_CONFIG: &str = "
 # This is the default configuration for FastSSH.
 
 theme:
-    text_primary: \"#b967ff\"
-    text_secondary: \"#ffffff\"
-    border_color: \"#b967ff\"
+    text_primary: \"#000080\"
+    text_secondary: \"#000000\"
+    bg_primary: \"#d0d0d0\"
+    bg_secondary: \"#c0c0c0\"
+    border_color: \"#800080\"
 ";
