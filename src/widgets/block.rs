@@ -5,7 +5,7 @@ use tui::{
     widgets::{Block, Borders},
 };
 
-pub fn new(title: &str) -> Block {
+pub fn new(title: &str) -> Block<'_> {
     Block::default()
         .borders(Borders::ALL)
         .border_style(Style::default().fg(THEME.border_color()))
