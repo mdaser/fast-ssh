@@ -31,7 +31,7 @@ pub struct App {
     pub config_paragraph_offset: u16,
     pub db: FileDatabase,
     pub show_help: bool,
-    pub config: Config,
+    pub _config: Config,
 }
 
 impl App {
@@ -52,7 +52,7 @@ impl App {
             db,
             searcher: Searcher::new(),
             show_help: false,
-            config,
+            _config: config,
         })
     }
 
