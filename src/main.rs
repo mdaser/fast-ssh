@@ -52,11 +52,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
 
             HelpWidget::render(&mut app, layout.chunks_top[2], frame);
-            HostsWidget::render(&mut app, layout.chunks_bot[0], frame);
-            ConfigWidget::render(&mut app, layout.chunks_bot[2], frame);
+            HostsWidget::render(&mut app, layout.chunks_main[0], frame);
+            ConfigWidget::render(&mut app, layout.chunks_main[2], frame);
+
+            // TODO InfoWidget::render(&mut app, layout.chunks_bot[0], frame);
+            // Use HelpWidget to demonstrate the layout.
+            HelpWidget::render(&mut app, layout.chunks_bot[0], frame);
 
             if app.show_help {
-                ShortcutsWidget::render(&app, layout.chunks_bot[4], frame);
+                ShortcutsWidget::render(&app, layout.chunks_main[4], frame);
             }
         })?;
 
