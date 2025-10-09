@@ -20,7 +20,7 @@ use term::*;
 use theme::*;
 use widgets::{
     config_widget::ConfigWidget, groups_widget::GroupsWidget, help_widget::HelpWidget,
-    hosts_widget::HostsWidget, shortcuts_widget::ShortcutsWidget,
+    hosts_widget::HostsWidget, shortcuts_widget::ShortcutsWidget, title_widget::TitleWidget,
 };
 
 lazy_static! {
@@ -45,6 +45,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     loop {
         terminal.draw(|frame| {
             let layout = create_layout(&app, frame);
+
+            TitleWidget::render(&mut app, layout.title[0], frame);
 
             match app.state {
                 AppState::Normal => GroupsWidget::render(&app, layout.chunks_top[0], frame),
