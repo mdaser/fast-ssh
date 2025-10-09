@@ -43,6 +43,7 @@ fn handle_input_normal_mode(app: &mut App, key: KeyCode) {
         KeyCode::Char('c') => app.toggle_config_display_mode(),
         KeyCode::Char('h') => app.show_help = !app.show_help,
         KeyCode::Char('s') => app.state = AppState::Searching,
+        KeyCode::Char('/') => app.state = AppState::Searching,
         KeyCode::Char('q') => app.should_quit = true,
         _ => {}
     }
