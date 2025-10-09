@@ -9,6 +9,8 @@ use crate::{
     ssh_config_store::{SshConfigStore, SshGroup, SshGroupItem},
 };
 
+const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
+
 pub enum ConfigDisplayMode {
     Global,
     Selected,
@@ -146,5 +148,13 @@ impl App {
             ConfigDisplayMode::Global => ConfigDisplayMode::Selected,
             ConfigDisplayMode::Selected => ConfigDisplayMode::Global,
         };
+    }
+
+    pub fn app_name(&self) -> &str {
+        "FastSSH"
+    }
+
+    pub fn app_version(&self) -> &str {
+        VERSION.unwrap_or("unknown")
     }
 }
