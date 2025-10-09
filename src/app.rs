@@ -23,6 +23,7 @@ pub enum AppState {
 
 pub struct App {
     pub state: AppState,
+    state_info: String,
     pub searcher: Searcher,
     pub selected_group: usize,
     pub host_state: TableState,
@@ -44,6 +45,7 @@ impl App {
 
         Ok(App {
             state: AppState::Normal,
+            state_info: String::from("Welcome to FastSSH!"),
             selected_group: 0,
             config_paragraph_offset: 0,
             scs,
@@ -148,6 +150,10 @@ impl App {
             ConfigDisplayMode::Global => ConfigDisplayMode::Selected,
             ConfigDisplayMode::Selected => ConfigDisplayMode::Global,
         };
+    }
+
+    pub fn state_info(&self) -> &str {
+        &self.state_info
     }
 
     pub fn app_name(&self) -> &str {
