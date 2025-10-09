@@ -1,16 +1,7 @@
 <div align="center">
-    <img src="https://i.imgur.com/4Mb6msT.png" />
+    <img src="doc/FastSSH-Logo.png" />
     <br/>
     <b>Connect quickly to your services 🚀</b>
-    <br/>
-    <br/>
-    <a href="https://github.com/Julien-R44/fash-ssh/actions/workflows/release.yml">
-        <img src="https://github.com/Julien-R44/fast-ssh/actions/workflows/release.yml/badge.svg" />
-    </a>
-    <a href="https://crates.io/crates/fast-ssh">
-        <img src="https://img.shields.io/crates/v/fast-ssh.svg" />
-    </a>
-    <img src="https://img.shields.io/crates/l/fast-ssh.svg">
     <br/>
     <br/>
     <div>
@@ -22,13 +13,15 @@
 ![A Screenshot of FastSSH Light Theme](doc/FastSSH-Light.png)
 
 # Installation
-Download the latest release for your platform [here](https://github.com/Julien-R44/fast-ssh/releases), extract it and put it in a directory that is in your PATH (Packages managers coming soon). For example:
+
+Currently, just the build from sources is supported.
+
+Clone the repostory and execute:
 
 ```
-sudo cp fast-ssh /usr/bin/fast-ssh
+cargo build --release
+cargo install --path .
 ```
-
-If you use cargo you can run `cargo install fast-ssh`
 
 Then you can launch Fast-SSH with `fast-ssh`.
 
@@ -69,7 +62,7 @@ This file is automatically created when you launch Fast-SSH.
 This database is used to store the number of connections to a service and the date of last connection.
 
 ## Search Mode
-Fast-SSH implements a search mode ( fuzzy ) that allows you to type to find one of your hosts. To use it, press `s`, start typing, finish your selection with the arrow keys then press enter once the host is selected to make the SSH connection. Press ESC if you wish to leave the search mode and return to the "groups" mode.
+Fast-SSH implements a search mode ( fuzzy ) that allows you to type to find one of your hosts. To use it, press `s` or `/`, start typing, finish your selection with the arrow keys then press enter once the host is selected to make the SSH connection. Press ESC if you wish to leave the search mode and return to the "groups" mode.
 
 ## Shortcuts
 | Key           | Action                               |
