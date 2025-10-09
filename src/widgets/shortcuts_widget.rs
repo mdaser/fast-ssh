@@ -23,7 +23,7 @@ impl ShortcutsWidget {
             Spans::from("'Left/Right': Change Group"),
             Spans::from("'c': Configuration Display Mode"),
             Spans::from("'PageUp/Down': Scroll Configuration"),
-            Spans::from("'s' Search Mode"),
+            Spans::from("'s'|'/' Search Mode"),
             Spans::from("'Esc' Exit Search Mode"),
             Spans::from("'q': Exit"),
         ];
