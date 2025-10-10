@@ -20,7 +20,7 @@ use term::*;
 use theme::*;
 use widgets::{
     config_widget::ConfigWidget, groups_widget::GroupsWidget, help_widget::HelpWidget,
-    hosts_widget::HostsWidget, shortcuts_widget::ShortcutsWidget, status_widget::StatusWidget,
+    hosts_widget::HostsWidget, shortcuts_widget::ShortcutsWidget, state_widget::StateWidget,
     title_widget::TitleWidget,
 };
 
@@ -60,7 +60,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             // TODO InfoWidget::render(&mut app, layout.chunks_bot[0], frame);
             // Use HelpWidget to demonstrate the layout.
-            StatusWidget::render(&mut app, layout.chunks_bot[0], frame);
+            StateWidget::render(&mut app, layout.chunks_bot[0], frame);
 
             if app.show_help() {
                 ShortcutsWidget::render(&app, layout.chunks_main[4], frame);
