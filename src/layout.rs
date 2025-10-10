@@ -53,18 +53,18 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
     let constraints = match app.show_help() {
         false => {
             vec![
-                Constraint::Percentage(50),
+                Constraint::Percentage(60),
                 Constraint::Length(1),
-                Constraint::Percentage(50),
+                Constraint::Percentage(40),
             ]
         }
         true => {
             vec![
-                Constraint::Percentage(40),
+                Constraint::Percentage(45),
                 Constraint::Length(1),
                 Constraint::Percentage(30),
                 Constraint::Length(1),
-                Constraint::Percentage(30),
+                Constraint::Percentage(25),
             ]
         }
     };
