@@ -50,7 +50,7 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
         )
         .split(base_chunk[1]);
 
-    let constraints = match app.show_help {
+    let constraints = match app.show_help() {
         false => {
             vec![
                 Constraint::Percentage(50),

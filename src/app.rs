@@ -22,7 +22,7 @@ pub enum AppState {
 }
 
 pub struct App {
-    pub state: AppState,
+    state: AppState,
     state_info: String,
     pub searcher: Searcher,
     pub selected_group: usize,
@@ -33,8 +33,8 @@ pub struct App {
     pub should_spawn_ssh: bool,
     pub config_paragraph_offset: u16,
     pub db: FileDatabase,
-    pub show_help: bool,
-    pub _config: Config,
+    show_help: bool,
+    _config: Config,
 }
 
 impl App {
@@ -152,8 +152,32 @@ impl App {
         };
     }
 
+    pub fn set_state(&mut self, state: AppState) {
+        self.state = state;
+        self.state_info = match self.state {
+            AppState::Normal => String::from(""),
+            AppState::Searching => String::from("Search Mode ... Press ESC to cancel."),
+        }
+    }
+
+    pub fn state(&self) -> &AppState {
+        &self.state
+    }
+
     pub fn state_info(&self) -> &str {
         &self.state_info
+    }
+
+    pub fn toggle_help(&mut self) {
+        self.show_help = !self.show_help;
+        self.state_info = match self.show_help {
+            false => String::from(""),
+            true => String::from("Help: Press 'h' to toggle"),
+        }
+    }
+
+    pub fn show_help(&self) -> bool {
+        self.show_help
     }
 
     pub fn app_name(&self) -> &str {

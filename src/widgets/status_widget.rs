@@ -11,7 +11,7 @@ pub struct StatusWidget {}
 
 impl StatusWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
-        let block = block::new(" Status ").title_alignment(tui::layout::Alignment::Left);
+        let block = block::new(" State ").title_alignment(tui::layout::Alignment::Left);
 
         let empty_span = Spans::from(format!(" {}", app.state_info()));
 

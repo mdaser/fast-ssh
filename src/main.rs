@@ -49,7 +49,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             TitleWidget::render(&mut app, layout.title[0], frame);
 
-            match app.state {
+            match app.state() {
                 AppState::Normal => GroupsWidget::render(&app, layout.chunks_top[0], frame),
                 AppState::Searching => app.searcher.render(&app, layout.chunks_top[0], frame),
             };
@@ -62,7 +62,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             // Use HelpWidget to demonstrate the layout.
             StatusWidget::render(&mut app, layout.chunks_bot[0], frame);
 
-            if app.show_help {
+            if app.show_help() {
                 ShortcutsWidget::render(&app, layout.chunks_main[4], frame);
             }
         })?;
