@@ -30,7 +30,13 @@ impl Searcher {
 
         app.get_all_items()
             .into_iter()
-            .filter(|item| best_match(&self.search_string, &item.full_name).is_some())
+            .filter(|item| {
+                let tag_match = match &item.tags {
+                    Some(tags) => best_match(&self.search_string, tags).is_some(),
+                    _ => false,
+                };
+                best_match(&self.search_string, &item.full_name).is_some() || tag_match
+            })
             .collect::<Vec<&SshGroupItem>>()
     }
 
