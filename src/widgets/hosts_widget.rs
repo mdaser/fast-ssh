@@ -8,7 +8,7 @@ use std::{
 use tui::{
     backend::CrosstermBackend,
     layout::{Constraint, Rect},
-    style::Style,
+    style::{Modifier, Style},
     widgets::{Cell, Row, Table},
     Frame,
 };
@@ -47,9 +47,13 @@ impl HostsWidget {
     }
 
     fn create_header() -> Row<'static> {
-        let header_cells = ["Host", "Last Used", "# of Conn", "Tags"]
-            .iter()
-            .map(|h| Cell::from(*h).style(Style::default().fg(THEME.text_secondary())));
+        let header_cells = ["Host", "Last Used", "# of Conn", "Tags"].iter().map(|h| {
+            Cell::from(*h).style(
+                Style::default()
+                    .add_modifier(Modifier::BOLD)
+                    .fg(THEME.text_secondary()),
+            )
+        });
 
         Row::new(header_cells)
             .style(Style::default())
