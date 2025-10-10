@@ -37,16 +37,17 @@ impl HostsWidget {
             .style(Style::default().fg(THEME.text_secondary()))
             .highlight_symbol(">> ")
             .widths(&[
-                Constraint::Percentage(30),
-                Constraint::Percentage(40),
-                Constraint::Percentage(30),
+                Constraint::Percentage(25),
+                Constraint::Percentage(15),
+                Constraint::Percentage(15),
+                Constraint::Percentage(45),
             ]);
 
         frame.render_stateful_widget(t, area, &mut app.host_state);
     }
 
     fn create_header() -> Row<'static> {
-        let header_cells = ["Host", "Last Used", "# of Conn"]
+        let header_cells = ["Host", "Last Used", "# of Conn", "Tags"]
             .iter()
             .map(|h| Cell::from(*h).style(Style::default().fg(THEME.text_secondary())));
 
@@ -62,11 +63,16 @@ impl HostsWidget {
             .iter()
             .map(|item| {
                 let timestamp_str = HostsWidget::format_last_used_date(item);
+                let tags_string = match &item.tags {
+                    Some(tags) => tags.clone(),
+                    _ => String::from(""),
+                };
 
                 let cells = [
                     Cell::from(item.name.to_string()).style(style),
                     Cell::from(timestamp_str).style(style),
                     Cell::from(item.connection_count.to_string()).style(style),
+                    Cell::from(tags_string).style(style),
                 ];
 
                 Row::new(cells).height(1).bottom_margin(0)
