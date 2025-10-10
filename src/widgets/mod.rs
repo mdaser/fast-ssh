@@ -4,5 +4,5 @@ pub mod groups_widget;
 pub mod help_widget;
 pub mod hosts_widget;
 pub mod shortcuts_widget;
-pub mod status_widget;
+pub mod state_widget;
 pub mod title_widget;

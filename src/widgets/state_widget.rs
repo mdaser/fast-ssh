@@ -7,9 +7,9 @@ use tui::{
 
 use super::block;
 
-pub struct StatusWidget {}
+pub struct StateWidget {}
 
-impl StatusWidget {
+impl StateWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
         let block = block::new(" State ").title_alignment(tui::layout::Alignment::Left);
 
