@@ -13,7 +13,7 @@ impl HelpWidget {
     pub fn render(_app: &mut App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
         let block = block::new("");
 
-        let help_span = Spans::from("'h' Show help");
+        let help_span = Spans::from("'h' Toggle help");
 
         let paragraph = Paragraph::new(help_span)
             .block(block)
