@@ -7,13 +7,26 @@ use std::fs::read_to_string;
 use std::path::PathBuf;
 
 trait ConfigComments {
-    fn get_comments(&self) -> (HashMap<String, String>, HashMap<String, String>);
+    fn get_comments(
+        &self,
+    ) -> (
+        HashMap<String, String>,
+        HashMap<String, String>,
+        HashMap<String, String>,
+    );
 }
 
 impl ConfigComments for SshConfig {
-    fn get_comments(&self) -> (HashMap<String, String>, HashMap<String, String>) {
+    fn get_comments(
+        &self,
+    ) -> (
+        HashMap<String, String>,
+        HashMap<String, String>,
+        HashMap<String, String>,
+    ) {
         let mut comments = HashMap::new();
         let mut tags = HashMap::new();
+        let mut tabs = HashMap::new();
 
         let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
         let config_path = PathBuf::from(home).join(".ssh").join("config");
@@ -21,6 +34,7 @@ impl ConfigComments for SshConfig {
         if let Ok(contents) = read_to_string(config_path) {
             let mut current_comment = Vec::new();
             let mut current_tags = Vec::new();
+            let mut current_group: Option<String> = None;
 
             for line in contents.lines() {
                 let trimmed = line.trim();
@@ -30,6 +44,9 @@ impl ConfigComments for SshConfig {
                     if comment_text.starts_with("tags:") {
                         let tags_line = comment_text["tags:".len()..].trim();
                         current_tags = tags_line.split(',').map(|s| s.trim().to_string()).collect();
+                    } else if comment_text.starts_with("tab:") {
+                        let tab_line = comment_text["tab:".len()..].trim();
+                        current_group = Some(tab_line.trim().to_string());
                     } else {
                         current_comment.push(comment_text);
                     }
@@ -40,17 +57,22 @@ impl ConfigComments for SshConfig {
                         current_comment.clear();
                     }
                     if !current_tags.is_empty() {
-                        tags.insert(host, current_tags.join(", "));
+                        tags.insert(host.clone(), current_tags.join(", "));
                         current_tags.clear();
+                    }
+                    if !current_group.is_none() {
+                        tabs.insert(host, current_group.clone().unwrap());
+                        current_group = None;
                     }
                 } else if trimmed.is_empty() {
                     current_comment.clear();
                     current_tags.clear();
+                    current_group = None;
                 }
             }
         }
 
-        (comments, tags)
+        (comments, tags, tabs)
     }
 }
 
@@ -81,14 +103,14 @@ impl SshConfigStore {
     pub async fn new(db: &FileDatabase) -> Result<SshConfigStore> {
         let ssh_config = SshConfigParser::parse_home().await?;
 
-        let (comments, tags) = ssh_config.get_comments();
+        let (comments, tags, tabs) = ssh_config.get_comments();
 
         let mut scs = SshConfigStore {
             config: ssh_config,
             groups: Vec::new(),
         };
 
-        scs.create_ssh_groups(db, &comments, &tags);
+        scs.create_ssh_groups(db, &comments, &tags, &tabs);
 
         if scs.groups.is_empty() {
             return Err(format_err!("Your configuration file contains no entries (or only wildcards) ! Please add at least one."));
@@ -102,38 +124,40 @@ impl SshConfigStore {
         db: &FileDatabase,
         comments: &std::collections::HashMap<String, String>,
         tags: &std::collections::HashMap<String, String>,
+        tabs: &std::collections::HashMap<String, String>,
     ) {
         let mut groups: Vec<SshGroup> = vec![SshGroup {
             name: "Others".to_string(),
             items: Vec::new(),
         }];
 
-        self.config.iter().for_each(|(key, value)| {
-            let host_entry = db.get_host_values(key).unwrap();
+        self.config.iter().for_each(|(host_short, value)| {
+            let host_entry = db.get_host_values(host_short).unwrap();
 
-            if key.contains('*') {
+            if host_short.contains('*') {
                 return;
             }
 
-            if key.contains('/') {
-                let group_name = key.split('/').next().unwrap();
-                let group_key = key.split('/').skip(1).collect::<Vec<&str>>().join("");
-
-                let group = groups.iter_mut().find(|g| g.name == group_name);
+            if tabs.contains_key(host_short) {
+                let tab_name = tabs
+                    .get(host_short)
+                    .cloned()
+                    .unwrap_or_else(|| "Others".to_string());
+                let group = groups.iter_mut().find(|g| g.name == tab_name);
 
                 let group_item = SshGroupItem {
-                    name: group_key,
+                    name: host_short.to_string(),
                     connection_count: host_entry.connection_count,
                     last_used: host_entry.last_used_date,
-                    full_name: key.to_string(),
+                    full_name: host_short.to_string(),
                     host_config: value.clone(),
-                    comment: comments.get(key).cloned(),
-                    tags: tags.get(key).cloned(),
+                    comment: comments.get(host_short).cloned(),
+                    tags: tags.get(host_short).cloned(),
                 };
 
                 if group.is_none() {
                     groups.push(SshGroup {
-                        name: group_name.to_string(),
+                        name: tab_name.to_string(),
                         items: vec![group_item],
                     });
 
@@ -147,13 +171,13 @@ impl SshConfigStore {
             }
 
             groups[0].items.push(SshGroupItem {
-                full_name: key.to_string(),
+                full_name: host_short.to_string(),
                 connection_count: host_entry.connection_count,
                 last_used: host_entry.last_used_date,
-                name: key.to_string(),
+                name: host_short.to_string(),
                 host_config: value.clone(),
-                comment: comments.get(key).cloned(),
-                tags: tags.get(key).cloned(),
+                comment: comments.get(host_short).cloned(),
+                tags: tags.get(host_short).cloned(),
             });
         });
 
