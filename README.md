@@ -8,6 +8,10 @@
         FastSSH is a TUI that allows you to quickly connect to your services by navigating through your SSH config.
     </div>
     <br/>
+    <div>
+        Forked from and inspired by <a href="https://github.com/Julien-R44/fast-ssh">Julien-R44/fast-ssh</a>
+    </div>
+    <br/>
 </div>
 
 ![A Screenshot of FastSSH Light Theme](doc/FastSSH-Light.png)
@@ -26,16 +30,30 @@ cargo install --path .
 Then you can launch Fast-SSH with `fast-ssh`.
 
 # Documentation
-The default SSH configuration file should be located at `~/.ssh/config`. If you already have an SSH configuration file with some hosts defined then you don't have to add anything, Fast-SSH just parses this file and displays it. If you don't have an SSH configuration file or you don't have any hosts defined within it then below is an example to help you set one up for use with Fast-SSH. Further information about the SSH configuration file can be found at this link: https://linuxize.com/post/using-the-ssh-config-file/
+The default SSH configuration file should be located at `~/.ssh/config`. If you already have an SSH configuration file with some hosts defined then you don't have to add anything, Fast-SSH just parses this file and displays it. 
+
+If you don't have an SSH configuration file or you don't have any hosts defined within it then below is an example to help you set one up for use with Fast-SSH. 
+
+Further information about the SSH configuration file can be found at this link: https://linuxize.com/post/using-the-ssh-config-file/
+
+You may add comments above the Host entries; these will be shown in the Configuration pane.
+
+
 
 ```
 Host *
     UpdateHostKeys yes
 
+# My desktop machine
+# tags: desktop, x86_64
+# group: muc
 Host Desktop                            # Name of host you want to connect to, for use with Fast-SSH.
     HostName 192.168.1.10               # Hostname using an IP address, this can be a public or private one.
     User YourCoolUsername               # Username for the host you want to SSH into.
 
+# My server machine
+# tags: server, Sparc
+# group: datacenter
 Host Server                             # Name of host you want to connect to, for use with Fast-SSH.
     HostName 216.58.214.14              # Hostname using an IP address, this can be a public or private one.
     User YourCoolUsername               # Username for the host you want to SSH into.
@@ -44,10 +62,14 @@ Host AnotherServer                      # Name of host you want to connect to, f
     HostName example.com                # Hostname using a domain name.
     User YourCoolUsername               # Username for the host you want to SSH into.
 
+# tags: pi
+# group: RaspberryPi
 Host RaspberyPi/Arch-Linux              # Defined group and name of host for use with Fast-SSH.
     HostName alarm-pi.local             # Hostname using a locally resolved address.
     User YourCoolUsername               # Username for the host you want to SSH into.
 
+# tags: pi
+# group: RaspberryPi
 Host RaspberryPi/Raspbian               # Defined group and name of host for use with Fast-SSH.
     HostName raspbian.lan               # Hostname using a locally resolved address.
     User YourCoolUsername               # Username for the host you want to SSH into.
