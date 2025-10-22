@@ -16,9 +16,13 @@ pub enum ConfigDisplayMode {
     Selected,
 }
 
+#[derive(Debug, PartialEq)]
 pub enum AppState {
-    Searching,
     Normal,
+    Searching,
+    SpawnSsh,
+    Ping(String),
+    Quit,
 }
 
 pub struct App {
@@ -29,8 +33,6 @@ pub struct App {
     pub host_state: TableState,
     pub scs: SshConfigStore,
     pub config_display_mode: ConfigDisplayMode,
-    pub should_quit: bool,
-    pub should_spawn_ssh: bool,
     pub config_paragraph_offset: u16,
     pub db: FileDatabase,
     show_help: bool,
@@ -50,8 +52,6 @@ impl App {
             config_paragraph_offset: 0,
             scs,
             host_state: TableState::default(),
-            should_quit: false,
-            should_spawn_ssh: false,
             config_display_mode: ConfigDisplayMode::Selected,
             db,
             searcher: Searcher::new(),
@@ -100,12 +100,12 @@ impl App {
 
     pub fn get_items_based_on_mode(&self) -> Vec<&SshGroupItem> {
         let items: Vec<&SshGroupItem> = match self.state {
-            AppState::Normal => self
+            AppState::Searching => self.searcher.get_filtered_items(self),
+            _ => self
                 .get_selected_group()
                 .items
                 .iter()
                 .collect::<Vec<&SshGroupItem>>(),
-            AppState::Searching => self.searcher.get_filtered_items(self),
         };
 
         items
@@ -154,14 +154,14 @@ impl App {
 
     pub fn set_state(&mut self, state: AppState) {
         self.state = state;
-        self.state_info = match self.state {
-            AppState::Normal => String::from(""),
-            AppState::Searching => String::from("Search Mode ... Press ESC to cancel."),
-        }
     }
 
     pub fn state(&self) -> &AppState {
         &self.state
+    }
+
+    pub fn set_state_info(&mut self, state_info: String) {
+        self.state_info = state_info;
     }
 
     pub fn state_info(&self) -> &str {
@@ -170,10 +170,6 @@ impl App {
 
     pub fn toggle_help(&mut self) {
         self.show_help = !self.show_help;
-        self.state_info = match self.show_help {
-            false => String::from(""),
-            true => String::from("Help: Press 'h' to toggle"),
-        }
     }
 
     pub fn show_help(&self) -> bool {
