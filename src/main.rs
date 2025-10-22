@@ -43,23 +43,21 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     app.host_state.select(Some(0));
 
-    loop {
+    'fastssh: loop {
         terminal.draw(|frame| {
             let layout = create_layout(&app, frame);
 
             TitleWidget::render(&mut app, layout.title[0], frame);
 
             match app.state() {
-                AppState::Normal => GroupsWidget::render(&app, layout.chunks_top[0], frame),
                 AppState::Searching => app.searcher.render(&app, layout.chunks_top[0], frame),
+                _ => GroupsWidget::render(&app, layout.chunks_top[0], frame),
             };
 
             HelpWidget::render(&mut app, layout.chunks_top[2], frame);
             HostsWidget::render(&mut app, layout.chunks_main[0], frame);
             ConfigWidget::render(&mut app, layout.chunks_main[2], frame);
 
-            // TODO InfoWidget::render(&mut app, layout.chunks_bot[0], frame);
-            // Use HelpWidget to demonstrate the layout.
             StateWidget::render(&mut app, layout.chunks_bot[0], frame);
 
             if app.show_help() {
@@ -69,14 +67,33 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         handle_inputs(&mut app)?;
 
-        if app.should_quit || app.should_spawn_ssh {
-            break;
+        match app.state() {
+            AppState::Normal => app.set_state_info(String::from(">> ")),
+            AppState::Searching => {
+                app.set_state_info(String::from("Search Mode ... Press ESC to cancel."))
+            }
+            AppState::Ping(host_name) => {
+                // ping host, show result, and set state to normal
+                app.set_state_info(format!(
+                    "64 bytes from {host_name} (10.157.181.172): icmp_seq=1 ttl=53 time=70.0 ms"
+                ));
+                app.set_state(AppState::Normal);
+            }
+
+            AppState::SpawnSsh => {
+                app.set_state_info(format!("Connect to ...").clone());
+                break 'fastssh;
+            }
+            AppState::Quit => {
+                app.set_state_info(String::from("Terminating."));
+                break 'fastssh;
+            }
         }
     }
 
     restore_terminal(&mut terminal)?;
 
-    if app.should_spawn_ssh {
+    if *app.state() == AppState::SpawnSsh {
         let selected_config = app.get_selected_item().unwrap();
         let host_name = &selected_config.full_name;
 

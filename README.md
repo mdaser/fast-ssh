@@ -46,14 +46,14 @@ Host *
 
 # My desktop machine
 # tags: desktop, x86_64
-# group: muc
+# tab: muc
 Host Desktop                            # Name of host you want to connect to, for use with Fast-SSH.
     HostName 192.168.1.10               # Hostname using an IP address, this can be a public or private one.
     User YourCoolUsername               # Username for the host you want to SSH into.
 
 # My server machine
 # tags: server, Sparc
-# group: datacenter
+# tab: datacenter
 Host Server                             # Name of host you want to connect to, for use with Fast-SSH.
     HostName 216.58.214.14              # Hostname using an IP address, this can be a public or private one.
     User YourCoolUsername               # Username for the host you want to SSH into.
@@ -63,13 +63,13 @@ Host AnotherServer                      # Name of host you want to connect to, f
     User YourCoolUsername               # Username for the host you want to SSH into.
 
 # tags: pi
-# group: RaspberryPi
+# tab: RaspberryPi
 Host RaspberyPi/Arch-Linux              # Defined group and name of host for use with Fast-SSH.
     HostName alarm-pi.local             # Hostname using a locally resolved address.
     User YourCoolUsername               # Username for the host you want to SSH into.
 
 # tags: pi
-# group: RaspberryPi
+# tab: RaspberryPi
 Host RaspberryPi/Raspbian               # Defined group and name of host for use with Fast-SSH.
     HostName raspbian.lan               # Hostname using a locally resolved address.
     User YourCoolUsername               # Username for the host you want to SSH into.

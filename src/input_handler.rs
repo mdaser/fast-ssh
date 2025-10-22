@@ -5,8 +5,8 @@ use crate::app::{App, AppState};
 pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
     if let Event::Key(key) = event::read()? {
         match app.state() {
-            AppState::Normal => handle_input_normal_mode(app, key.code),
             AppState::Searching => handle_input_search_mode(app, key.code),
+            _ => handle_input_normal_mode(app, key.code),
         };
 
         match key.code {
@@ -20,9 +20,13 @@ pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
             KeyCode::PageUp => app.scroll_config_paragraph(-1),
             KeyCode::Enter => {
                 if app.get_selected_item().is_some() {
-                    app.should_spawn_ssh = true;
+                    app.set_state(AppState::SpawnSsh)
                 }
             }
+            KeyCode::Char('p') => match app.get_selected_item() {
+                Some(host) => app.set_state(AppState::Ping(host.name.clone())),
+                _ => app.set_state(AppState::Normal),
+            },
             _ => {}
         };
     }
@@ -44,7 +48,7 @@ fn handle_input_normal_mode(app: &mut App, key: KeyCode) {
         KeyCode::Char('h') => app.toggle_help(),
         KeyCode::Char('s') => app.set_state(AppState::Searching),
         KeyCode::Char('/') => app.set_state(AppState::Searching),
-        KeyCode::Char('q') => app.should_quit = true,
+        KeyCode::Char('q') => app.set_state(AppState::Quit),
         _ => {}
     }
 }
