@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use crate::app::App;
 use crate::THEME;
 use std::io::Stdout;

@@ -2,7 +2,7 @@
 name = "fast-ssh"
 version = "0.4.0"
 license = "MIT"
-description = "Quicky connect to your servers by navigating through your SSH config."
+description = "Quickly connect to your servers by navigating through your SSH config."
 readme = "README.md"
 homepage = "https://github.com/mdaser/fast-ssh"
 repository = "https://github.com/mdaser/fast-ssh"

@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 pub mod block;
 pub mod config_widget;
 pub mod groups_widget;

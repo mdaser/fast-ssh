@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use crate::database::FileDatabase;
 use anyhow::{format_err, Result};
 use ssh_cfg::{SshConfig, SshConfigParser, SshHostConfig};

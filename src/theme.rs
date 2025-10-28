@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use serde::Deserialize;
 use tui::style::Color;
 
