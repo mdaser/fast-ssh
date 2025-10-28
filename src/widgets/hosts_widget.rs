@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use super::block;
 use crate::{app::App, ssh_config_store::SshGroupItem, THEME};
 use chrono::{DateTime, Utc};

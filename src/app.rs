@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use anyhow::{format_err, Context, Result};
 use std::fs;
 use tui::widgets::TableState;

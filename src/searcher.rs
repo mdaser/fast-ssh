@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use crate::{app::App, ssh_config_store::SshGroupItem, widgets::block, THEME};
 use std::io::Stdout;
 use sublime_fuzzy::best_match;

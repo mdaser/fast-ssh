@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use crate::Theme;
 use anyhow::Result;
 use serde::Deserialize;

@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use crate::{App, THEME};
 use std::io::Stdout;
 use tui::{

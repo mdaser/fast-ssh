@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use layout::create_layout;
 use lazy_static::lazy_static;
 use std::process::Command;

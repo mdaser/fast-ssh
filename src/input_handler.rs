@@ -1,3 +1,7 @@
+//
+// Copyright (C) 2025 by Martin Daser
+//
+
 use crossterm::event::{self, Event, KeyCode};
 
 use crate::app::{App, AppState};
