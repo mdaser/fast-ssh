@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use layout::create_layout;
@@ -11,6 +11,7 @@ mod config;
 mod database;
 mod input_handler;
 mod layout;
+mod net;
 mod searcher;
 mod ssh_config_store;
 mod term;
