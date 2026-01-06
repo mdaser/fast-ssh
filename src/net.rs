@@ -5,7 +5,7 @@
 use std::net::ToSocketAddrs;
 use std::time::Duration;
 
-fn ping(host: &str) -> String {
+pub fn ping(host: &str) -> String {
     let mut socket_addr = match format!("{}:0", host).to_socket_addrs() {
         Ok(a) => a,
         _ => return format!("Invalid address '{}'", host),
@@ -17,14 +17,28 @@ fn ping(host: &str) -> String {
                 35, 68, 101, 114, 83, 99, 104, 119, 97, 114, 122, 101, 87, 101, 103, 101, 108, 97,
                 103, 101, 114, 101, 114, 33,
             ];
+            let ttl = 32;
 
             match ping::new(target.ip())
                 .timeout(Duration::from_secs(2))
-                .ttl(64)
+                .ttl(ttl)
                 .payload(&custom_payload)
                 .send()
             {
-                Ok(_) => format!("{} is reachable.", host),
+                Ok(result) => {
+                    let millis = result.rtt.as_millis();
+                    let micros = result.rtt.as_micros() - millis * 1000;
+                    format!(
+                        "{} bytes from {} ({}): ttl={}({}) time={}.{} ms",
+                        result.payload.len(),
+                        host,
+                        target.ip(),
+                        result.seq_cnt,
+                        ttl,
+                        millis,
+                        micros
+                    )
+                }
                 Err(e) => format!("Ping failed: {}", e),
             }
         }

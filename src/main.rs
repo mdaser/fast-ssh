@@ -78,10 +78,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 app.set_state_info(String::from("Search Mode ... Press ESC to cancel."))
             }
             AppState::Ping(host_name) => {
-                // ping host, show result, and set state to normal
-                app.set_state_info(format!(
-                    "64 bytes from {host_name} (10.157.181.172): icmp_seq=1 ttl=53 time=70.0 ms"
-                ));
+                app.set_state_info(net::ping(host_name));
                 app.set_state(AppState::Normal);
             }
 
