@@ -54,8 +54,8 @@ impl ConfigComments for SshConfig {
                     } else {
                         current_comment.push(comment_text);
                     }
-                } else if trimmed.starts_with("Host ") {
-                    let host = trimmed["Host ".len()..].trim().to_string();
+                } else if trimmed.to_lowercase().starts_with("host ") {
+                    let host = trimmed["host ".len()..].trim().to_string();
                     if !current_comment.is_empty() {
                         comments.insert(host.clone(), current_comment.join("\n"));
                         current_comment.clear();
