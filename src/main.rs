@@ -73,7 +73,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         handle_inputs(&mut app)?;
 
         match app.state() {
-            AppState::Normal => app.set_state_info(String::from(">> ")),
+            AppState::Normal => {},
             AppState::Searching => {
                 app.set_state_info(String::from("Search Mode ... Press ESC to cancel."))
             }
@@ -81,7 +81,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 app.set_state_info(net::ping(host_name, raw_socket));
                 app.set_state(AppState::Normal);
             }
-
             AppState::SpawnSsh => {
                 app.set_state_info(format!("Connect to ...").clone());
                 break 'fastssh;
