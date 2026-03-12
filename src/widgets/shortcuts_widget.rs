@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::{App, THEME};
@@ -28,6 +28,8 @@ impl ShortcutsWidget {
             Spans::from("'c': Configuration Display Mode"),
             Spans::from("'PageUp/Down': Scroll Configuration"),
             Spans::from("'s'|'/' Search Mode"),
+            Spans::from("'p': Ping"),
+            Spans::from("'P': Ping (raw[experimental])"),
             Spans::from("'Esc' Exit Search Mode"),
             Spans::from("'q': Exit"),
         ];
