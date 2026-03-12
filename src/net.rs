@@ -23,6 +23,7 @@ pub fn ping(host: &str) -> String {
                 .timeout(Duration::from_secs(2))
                 .ttl(ttl)
                 .payload(&custom_payload)
+                .socket_type(ping::DGRAM)
                 .send()
             {
                 Ok(result) => {
@@ -39,7 +40,7 @@ pub fn ping(host: &str) -> String {
                         micros
                     )
                 }
-                Err(e) => format!("Ping failed: {}", e),
+                Err(e) => format!("Ping {}  failed: {}", target.ip(), e),
             }
         }
         _ => format!("no IP for {}", host),
