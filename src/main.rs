@@ -77,8 +77,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             AppState::Searching => {
                 app.set_state_info(String::from("Search Mode ... Press ESC to cancel."))
             }
-            AppState::Ping(host_name) => {
-                app.set_state_info(net::ping(host_name));
+            AppState::Ping(host_name, raw_socket) => {
+                app.set_state_info(net::ping(host_name, raw_socket));
                 app.set_state(AppState::Normal);
             }
 

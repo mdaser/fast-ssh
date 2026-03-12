@@ -2,10 +2,11 @@
 // Copyright (C) 2026 by Martin Daser
 //
 
+use ping::SocketType;
 use std::net::ToSocketAddrs;
 use std::time::Duration;
 
-pub fn ping(host: &str) -> String {
+pub fn ping(host: &str, raw_socket: &bool) -> String {
     let mut socket_addr = match format!("{}:0", host).to_socket_addrs() {
         Ok(a) => a,
         _ => return format!("Invalid address '{}'", host),
@@ -17,13 +18,18 @@ pub fn ping(host: &str) -> String {
                 35, 68, 101, 114, 83, 99, 104, 119, 97, 114, 122, 101, 87, 101, 103, 101, 108, 97,
                 103, 101, 114, 101, 114, 33,
             ];
+            let socket_type = if *raw_socket {
+                SocketType::RAW
+            } else {
+                SocketType::DGRAM
+            };
             let ttl = 32;
 
             match ping::new(target.ip())
                 .timeout(Duration::from_secs(2))
                 .ttl(ttl)
                 .payload(&custom_payload)
-                .socket_type(ping::DGRAM)
+                .socket_type(socket_type)
                 .send()
             {
                 Ok(result) => {
