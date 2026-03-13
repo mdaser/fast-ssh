@@ -32,7 +32,7 @@ pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
                     host.name.clone(),
                     key.code == KeyCode::Char('P'),
                 )),
-                _ => app.set_state(AppState::Normal),
+                _ => app.set_state(AppState::Normal(false)),
             },
             _ => {}
         };
@@ -42,7 +42,7 @@ pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
 
 fn handle_input_search_mode(app: &mut App, key: KeyCode) {
     match key {
-        KeyCode::Esc => app.set_state(AppState::Normal),
+        KeyCode::Esc => app.set_state(AppState::Normal(false)),
         KeyCode::Char(c) => app.searcher.add_char(c),
         KeyCode::Backspace => app.searcher.del_char(),
         _ => {}
@@ -55,6 +55,7 @@ fn handle_input_normal_mode(app: &mut App, key: KeyCode) {
         KeyCode::Char('h') => app.toggle_help(),
         KeyCode::Char('s') => app.set_state(AppState::Searching),
         KeyCode::Char('/') => app.set_state(AppState::Searching),
+        KeyCode::Char('C') => app.set_state(AppState::Normal(true)),
         KeyCode::Char('q') => app.set_state(AppState::Quit),
         _ => {}
     }

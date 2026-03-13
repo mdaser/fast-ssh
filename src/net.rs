@@ -60,14 +60,14 @@ mod test {
     #[test]
     fn ping_00_google() {
         assert_eq!(
-            ping("www.google.com"),
+            ping("www.google.com", &false),
             String::from("www.google.com is reachable.")
         );
     }
 
     #[test]
     fn ping_01_fritzbox() {
-        assert_eq!(ping("fritz.box"), String::from("fritz.box is reachable."));
+        assert_eq!(ping("fritz.box", &false), String::from("fritz.box is reachable."));
     }
 
     // site dependent test; skip
@@ -82,7 +82,7 @@ mod test {
     #[test]
     fn ping_50_invalid_goggle() {
         assert_eq!(
-            ping("www.goggle.com"),
+            ping("www.goggle.com", &false),
             String::from("Invalid address 'www.goggle.com'")
         );
     }
@@ -90,7 +90,7 @@ mod test {
     #[test]
     fn ping_51_invalid_iobroker() {
         assert_eq!(
-            ping("iobroker.fritz.box"),
+            ping("iobroker.fritz.box", &false),
             String::from("Invalid address 'iobroker.fritz.box'")
         );
     }
