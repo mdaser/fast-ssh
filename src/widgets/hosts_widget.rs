@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use super::block;
@@ -21,7 +21,7 @@ pub struct HostsWidget {}
 
 impl HostsWidget {
     pub fn render(app: &mut App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
-        let block = block::new(" Hosts ");
+        let block = block::new(" Hosts ").title_alignment(tui::layout::Alignment::Left);
         let header = HostsWidget::create_header();
         let items = app.get_items_based_on_mode();
         let rows = HostsWidget::create_rows_from_items(&items);

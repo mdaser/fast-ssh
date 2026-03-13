@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::app::App;
@@ -18,7 +18,7 @@ impl TitleWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
         let title = format!(" {} - {} ", app.app_name(), app.app_version());
         let block = block::new(title.as_str())
-            .title_alignment(tui::layout::Alignment::Left)
+            .title_alignment(tui::layout::Alignment::Center)
             .border_type(BorderType::Thick)
             .borders(Borders::TOP);
 

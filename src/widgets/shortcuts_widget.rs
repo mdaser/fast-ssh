@@ -19,12 +19,12 @@ pub struct ShortcutsWidget {}
 
 impl ShortcutsWidget {
     pub fn render(_app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
-        let block = block::new(" Help ");
+        let block = block::new(" Help ").title_alignment(tui::layout::Alignment::Left);
 
         let text = vec![
-            Spans::from("'Enter': Validate     'Left/Right/Tab': Change Group   'p'| 'P' : Ping / raw (exp.)"),
-            Spans::from("'c': Display Config   'PageUp/Down': Scroll Config"),
-            Spans::from("'s'|'/': Search Mode  'Esc' Exit Search Mode           'q': Exit"),
+            Spans::from("'Enter': Validate        'Left/Right/Tab': Change Group   'p'| 'P' : Ping / raw (exp.)"),
+            Spans::from("'c': Toggle Config View  'PageUp/Down': Scroll Config"),
+            Spans::from("'s'|'/': Search Mode     'Esc' Exit Search Mode           'q': Exit"),
         ];
 
         let paragraph = Paragraph::new(text)
