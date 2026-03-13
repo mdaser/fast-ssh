@@ -22,7 +22,7 @@ pub enum ConfigDisplayMode {
 
 #[derive(Debug, PartialEq)]
 pub enum AppState {
-    Normal,
+    Normal(bool),
     Searching,
     SpawnSsh,
     Ping(String, bool),
@@ -50,7 +50,7 @@ impl App {
         let config = resolve_config();
 
         Ok(App {
-            state: AppState::Normal,
+            state: AppState::Normal(false),
             state_info: String::from("Welcome to FastSSH!"),
             selected_group: 0,
             config_paragraph_offset: 0,
