@@ -4,6 +4,7 @@
 
 use crate::app::App;
 use crate::THEME;
+use chrono::{DateTime, Local};
 use std::io::Stdout;
 use tui::{
     backend::CrosstermBackend, layout::Rect, style::Style, text::Spans, widgets::BorderType,
@@ -16,7 +17,13 @@ pub struct TitleWidget {}
 
 impl TitleWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
-        let title = format!(" {} - {} ", app.app_name(), app.app_version());
+        let now: DateTime<Local> = Local::now();
+        let title = format!(
+            " {} {} - {} ",
+            app.app_name(),
+            app.app_version(),
+            now.format("%a %b %e %T %Y")
+        );
         let block = block::new(title.as_str())
             .title_alignment(tui::layout::Alignment::Center)
             .border_type(BorderType::Thick)

@@ -44,28 +44,14 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
     let chunks_top = Layout::default()
         .direction(Direction::Horizontal)
         .margin(0)
-        .constraints(
-            [
-                Constraint::Percentage(80),
-                Constraint::Length(1),
-                Constraint::Length(10),
-            ]
-            .as_ref(),
-        )
+        .constraints([Constraint::Percentage(80), Constraint::Length(10)].as_ref())
         .split(base_chunk[1]);
 
     let chunks_main = Layout::default()
         .direction(Direction::Horizontal)
         .margin(0)
         .horizontal_margin(0)
-        .constraints(
-            [
-                Constraint::Percentage(60),
-                Constraint::Length(1),
-                Constraint::Percentage(40),
-            ]
-            .as_ref(),
-        )
+        .constraints([Constraint::Percentage(60), Constraint::Percentage(40)].as_ref())
         .split(base_chunk[2]);
 
     let chunks_bot = Layout::default()

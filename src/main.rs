@@ -59,9 +59,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 _ => GroupsWidget::render(&app, layout.chunks_top[0], frame),
             };
 
-            HelpWidget::render(&mut app, layout.chunks_top[2], frame);
+            HelpWidget::render(&mut app, layout.chunks_top[1], frame);
             HostsWidget::render(&mut app, layout.chunks_main[0], frame);
-            ConfigWidget::render(&mut app, layout.chunks_main[2], frame);
+            ConfigWidget::render(&mut app, layout.chunks_main[1], frame);
 
             if app.show_help() {
                 ShortcutsWidget::render(&app, layout.chunks_bot[0], frame);

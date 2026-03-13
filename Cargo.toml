@@ -1,6 +1,6 @@
 [package]
 name = "fast-ssh"
-version = "0.4.0"
+version = "0.4.1"
 license = "MIT"
 description = "Quickly connect to your servers by navigating through your SSH config."
 readme = "README.md"
