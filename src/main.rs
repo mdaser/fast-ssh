@@ -63,10 +63,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             HostsWidget::render(&mut app, layout.chunks_main[0], frame);
             ConfigWidget::render(&mut app, layout.chunks_main[2], frame);
 
-            StateWidget::render(&mut app, layout.chunks_bot[0], frame);
-
             if app.show_help() {
-                ShortcutsWidget::render(&app, layout.chunks_help[0], frame);
+                ShortcutsWidget::render(&app, layout.chunks_bot[0], frame);
+            } else {
+                StateWidget::render(&mut app, layout.chunks_bot[0], frame);
             }
         })?;
 

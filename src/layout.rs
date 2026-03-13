@@ -16,7 +16,6 @@ pub struct AppLayout {
     pub title: Vec<Rect>,
     pub chunks_top: Vec<Rect>,
     pub chunks_main: Vec<Rect>,
-    pub chunks_help: Vec<Rect>,
     pub chunks_bot: Vec<Rect>,
 }
 
@@ -30,8 +29,7 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
                 Constraint::Length(1),
                 Constraint::Length(3),
                 Constraint::Min(5),
-                Constraint::Length(if app.show_help() { 5 } else { 0 }),
-                Constraint::Length(3),
+                Constraint::Length(if app.show_help() { 5 } else { 3 }),
             ]
             .as_ref(),
         )
@@ -70,24 +68,17 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
         )
         .split(base_chunk[2]);
 
-    let chunks_help = Layout::default()
+    let chunks_bot = Layout::default()
         .direction(Direction::Horizontal)
         .margin(0)
         .horizontal_margin(0)
         .constraints([Constraint::Percentage(100)].as_ref())
         .split(base_chunk[3]);
 
-    let chunks_bot = Layout::default()
-        .direction(Direction::Horizontal)
-        .margin(0)
-        .constraints([Constraint::Percentage(100)].as_ref())
-        .split(base_chunk[4]);
-
     AppLayout {
         title,
         chunks_top,
         chunks_main,
-        chunks_help,
         chunks_bot,
     }
 }

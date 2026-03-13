@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use super::block;
@@ -15,7 +15,7 @@ pub struct GroupsWidget {}
 
 impl GroupsWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
-        let block = block::new(" Groups ");
+        let block = block::new(" Groups ").title_alignment(tui::layout::Alignment::Left);
         let titles = app
             .scs
             .groups

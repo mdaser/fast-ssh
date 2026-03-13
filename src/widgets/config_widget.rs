@@ -19,7 +19,7 @@ pub struct ConfigWidget {}
 
 impl ConfigWidget {
     pub fn render(app: &mut App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
-        let block = block::new(" Configuration ");
+        let block = block::new(" Configuration ").title_alignment(tui::layout::Alignment::Left);
 
         let paragraph = match app.config_display_mode {
             ConfigMode::Selected => ConfigWidget::get_paragraph_for_selected_mode(app, block),
