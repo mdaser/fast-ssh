@@ -66,7 +66,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             StateWidget::render(&mut app, layout.chunks_bot[0], frame);
 
             if app.show_help() {
-                ShortcutsWidget::render(&app, layout.chunks_main[4], frame);
+                ShortcutsWidget::render(&app, layout.chunks_help[0], frame);
             }
         })?;
 

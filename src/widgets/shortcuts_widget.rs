@@ -22,16 +22,9 @@ impl ShortcutsWidget {
         let block = block::new(" Help ");
 
         let text = vec![
-            Spans::from("'Enter': Validate"),
-            Spans::from("'BackTab/Tab': Change Group"),
-            Spans::from("'Left/Right': Change Group"),
-            Spans::from("'c': Configuration Display Mode"),
-            Spans::from("'PageUp/Down': Scroll Configuration"),
-            Spans::from("'s'|'/' Search Mode"),
-            Spans::from("'p': Ping"),
-            Spans::from("'P': Ping (raw[experimental])"),
-            Spans::from("'Esc' Exit Search Mode"),
-            Spans::from("'q': Exit"),
+            Spans::from("'Enter': Validate     'Left/Right/Tab': Change Group   'p'| 'P' : Ping / raw (exp.)"),
+            Spans::from("'c': Display Config   'PageUp/Down': Scroll Config"),
+            Spans::from("'s'|'/': Search Mode  'Esc' Exit Search Mode           'q': Exit"),
         ];
 
         let paragraph = Paragraph::new(text)

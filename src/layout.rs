@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use std::io::Stdout;
@@ -16,6 +16,7 @@ pub struct AppLayout {
     pub title: Vec<Rect>,
     pub chunks_top: Vec<Rect>,
     pub chunks_main: Vec<Rect>,
+    pub chunks_help: Vec<Rect>,
     pub chunks_bot: Vec<Rect>,
 }
 
@@ -29,6 +30,7 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
                 Constraint::Length(1),
                 Constraint::Length(3),
                 Constraint::Min(5),
+                Constraint::Length(if app.show_help() { 5 } else { 0 }),
                 Constraint::Length(3),
             ]
             .as_ref(),
@@ -54,42 +56,38 @@ pub fn create_layout(app: &App, frame: &mut Frame<CrosstermBackend<Stdout>>) -> 
         )
         .split(base_chunk[1]);
 
-    let constraints = match app.show_help() {
-        false => {
-            vec![
-                Constraint::Percentage(60),
-                Constraint::Length(1),
-                Constraint::Percentage(40),
-            ]
-        }
-        true => {
-            vec![
-                Constraint::Percentage(45),
-                Constraint::Length(1),
-                Constraint::Percentage(30),
-                Constraint::Length(1),
-                Constraint::Percentage(25),
-            ]
-        }
-    };
-
     let chunks_main = Layout::default()
         .direction(Direction::Horizontal)
         .margin(0)
         .horizontal_margin(0)
-        .constraints(constraints.as_slice())
+        .constraints(
+            [
+                Constraint::Percentage(60),
+                Constraint::Length(1),
+                Constraint::Percentage(40),
+            ]
+            .as_ref(),
+        )
         .split(base_chunk[2]);
+
+    let chunks_help = Layout::default()
+        .direction(Direction::Horizontal)
+        .margin(0)
+        .horizontal_margin(0)
+        .constraints([Constraint::Percentage(100)].as_ref())
+        .split(base_chunk[3]);
 
     let chunks_bot = Layout::default()
         .direction(Direction::Horizontal)
         .margin(0)
         .constraints([Constraint::Percentage(100)].as_ref())
-        .split(base_chunk[3]);
+        .split(base_chunk[4]);
 
     AppLayout {
         title,
         chunks_top,
         chunks_main,
+        chunks_help,
         chunks_bot,
     }
 }
