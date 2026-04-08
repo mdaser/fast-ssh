@@ -5,6 +5,7 @@
 use layout::create_layout;
 use lazy_static::lazy_static;
 use std::process::Command;
+use structopt::StructOpt;
 
 mod app;
 mod config;
@@ -34,9 +35,21 @@ lazy_static! {
     pub static ref THEME: &'static Theme = &CONFIG.theme;
 }
 
+#[derive(Debug, StructOpt)]
+#[structopt(name = "FastSSH", about = "An ssh Terminal UI.")]
+
+struct Arguments {
+    #[structopt(long = "ssh_config", short = "C")]
+    ssh_config: Option<String>,
+    #[structopt(long = "verbose", short = "v")]
+    verbose: bool,
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut app = match App::new().await {
+    let args = Arguments::from_args();
+
+    let mut app = match App::new(args.ssh_config, args.verbose).await {
         Ok(app) => app,
         Err(e) => {
             eprintln!("{}", e);
