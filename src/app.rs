@@ -40,11 +40,12 @@ pub struct App {
     pub config_paragraph_offset: u16,
     pub db: FileDatabase,
     show_help: bool,
+    _verbose: bool,
     _config: Config,
 }
 
 impl App {
-    pub async fn new() -> Result<App> {
+    pub async fn new(_ssh_config: Option<String>, verbose: bool) -> Result<App> {
         let db = App::create_or_get_db_file()?;
         let scs = SshConfigStore::new(&db).await?;
         let config = resolve_config();
@@ -60,6 +61,7 @@ impl App {
             db,
             searcher: Searcher::new(),
             show_help: false,
+            _verbose: verbose,
             _config: config,
         })
     }
