@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use anyhow::{format_err, Context, Result};
@@ -25,6 +25,7 @@ pub enum AppState {
     Normal,
     Searching,
     SpawnSsh,
+    ForkSsh,
     Ping(String),
     Quit,
 }

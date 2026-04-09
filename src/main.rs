@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use layout::create_layout;
@@ -82,6 +82,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "64 bytes from {host_name} (10.157.181.172): icmp_seq=1 ttl=53 time=70.0 ms"
                 ));
                 app.set_state(AppState::Normal);
+            }
+            AppState::ForkSsh => {
+                app.set_state_info(format!("Connect to ... TODO").clone());
             }
 
             AppState::SpawnSsh => {

@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crossterm::event::{self, Event, KeyCode};
@@ -25,6 +25,11 @@ pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
             KeyCode::Enter => {
                 if app.get_selected_item().is_some() {
                     app.set_state(AppState::SpawnSsh)
+                }
+            }
+            KeyCode::Char('s') => {
+                if app.get_selected_item().is_some() {
+                    app.set_state(AppState::ForkSsh)
                 }
             }
             KeyCode::Char('p') => match app.get_selected_item() {
