@@ -98,6 +98,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 app.set_state_info(net::ping(host_name, raw_socket));
                 app.set_state(AppState::Normal(false));
             }
+            AppState::ForkSsh => {
+                app.set_state_info(format!("Connect to ... TODO").clone());
+            }
+
             AppState::SpawnSsh => {
                 app.set_state_info(format!("Connect to ...").clone());
                 break 'fastssh;

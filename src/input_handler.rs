@@ -27,6 +27,11 @@ pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
                     app.set_state(AppState::SpawnSsh)
                 }
             }
+            KeyCode::Char('S') => {
+                if app.get_selected_item().is_some() {
+                    app.set_state(AppState::ForkSsh)
+                }
+            }
             KeyCode::Char('p') | KeyCode::Char('P') => match app.get_selected_item() {
                 Some(host) => app.set_state(AppState::Ping(
                     host.name.clone(),
