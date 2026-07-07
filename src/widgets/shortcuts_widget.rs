@@ -22,9 +22,9 @@ impl ShortcutsWidget {
         let block = block::new(" Help ").title_alignment(tui::layout::Alignment::Left);
 
         let text = vec![
-            Spans::from("'Enter': Validate        'Left/Right/Tab': Change Group   'p'| 'P' : Ping / raw (exp.)"),
-            Spans::from("'c': Toggle Config View  'PageUp/Down': Scroll Config"),
-            Spans::from("'s'|'/': Search Mode     'Esc' Exit Search Mode           'q': Exit"),
+            Spans::from("'Enter': Connect         'S': Connect (fork)        'Left/Right/Tab': Change Group"),
+            Spans::from("'c': Toggle Config View  'Up/Down': Scroll Config   'p'| 'P' : Ping / raw (exp.)"),
+            Spans::from("'s'|'/': Search Mode     'Esc' Exit Search Mode     'q': Exit"),
         ];
 
         let paragraph = Paragraph::new(text)

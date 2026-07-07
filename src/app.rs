@@ -25,6 +25,7 @@ pub enum AppState {
     Normal(bool),
     Searching,
     SpawnSsh,
+    ForkSsh,
     Ping(String, bool),
     Quit,
 }
