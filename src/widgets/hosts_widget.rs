@@ -3,7 +3,8 @@
 //
 
 use super::block;
-use crate::{app::App, ssh_config_store::SshGroupItem, THEME};
+use crate::Theme;
+use crate::{app::App, ssh_config_store::SshGroupItem};
 use chrono::{DateTime, Utc};
 use std::{
     io::Stdout,
@@ -21,8 +22,10 @@ pub struct HostsWidget {}
 
 impl HostsWidget {
     pub fn render(app: &mut App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
+        let theme = &app.config.theme;
+
         let block = block::new(" Hosts ").title_alignment(tui::layout::Alignment::Left);
-        let header = HostsWidget::create_header();
+        let header = HostsWidget::create_header(theme);
         let items = app.get_items_based_on_mode();
         let rows = HostsWidget::create_rows_from_items(&items);
 
@@ -33,12 +36,8 @@ impl HostsWidget {
         let t = Table::new(rows)
             .header(header)
             .block(block)
-            .highlight_style(
-                Style::default()
-                    .fg(THEME.text_primary())
-                    .bg(THEME.bg_primary()),
-            )
-            .style(Style::default().fg(THEME.text_secondary()))
+            .highlight_style(Style::default().fg(theme.text_hosts()).bg(theme.bg_hosts()))
+            .style(Style::default().fg(theme.text_hosts()))
             .highlight_symbol(">> ")
             .widths(&[
                 Constraint::Percentage(25),
@@ -50,12 +49,12 @@ impl HostsWidget {
         frame.render_stateful_widget(t, area, &mut app.host_state);
     }
 
-    fn create_header() -> Row<'static> {
+    fn create_header(theme: &Theme) -> Row<'static> {
         let header_cells = ["Host", "Last Used", "# of Conn", "Tags"].iter().map(|h| {
             Cell::from(*h).style(
                 Style::default()
                     .add_modifier(Modifier::BOLD)
-                    .fg(THEME.text_secondary()),
+                    .fg(theme.text_header()),
             )
         });
 

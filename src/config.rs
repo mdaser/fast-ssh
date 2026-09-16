@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::Theme;
@@ -64,8 +64,10 @@ const DEFAULT_CONFIG: &str = "
 
 theme:
     text_primary: \"#000080\"
-    text_secondary: \"#000000\"
     bg_primary: \"#d0d0d0\"
+    text_secondary: \"#000000\"
     bg_secondary: \"#c0c0c0\"
+    text_hosts: \"#000000\"
+    bg_hosts: \"#c0c0c0\"
     border_color: \"#800080\"
 ";

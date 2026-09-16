@@ -42,7 +42,7 @@ pub struct App {
     pub db: FileDatabase,
     show_help: bool,
     _verbose: bool,
-    _config: Config,
+    pub config: Config,
 }
 
 impl App {
@@ -63,7 +63,7 @@ impl App {
             searcher: Searcher::new(),
             show_help: false,
             _verbose: verbose,
-            _config: config,
+            config: config,
         })
     }
 

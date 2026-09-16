@@ -3,7 +3,7 @@
 //
 
 use super::block;
-use crate::{App, THEME};
+use crate::App;
 use std::io::Stdout;
 use tui::layout::Rect;
 use tui::style::{Modifier, Style};
@@ -15,6 +15,8 @@ pub struct GroupsWidget {}
 
 impl GroupsWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
+        let theme = &app.config.theme;
+
         let block = block::new(" Groups ").title_alignment(tui::layout::Alignment::Left);
         let titles = app
             .scs
@@ -23,7 +25,7 @@ impl GroupsWidget {
             .map(|t| {
                 Spans::from(Span::styled(
                     t.name.to_string(),
-                    Style::default().fg(THEME.text_secondary()),
+                    Style::default().fg(theme.text_secondary()),
                 ))
             })
             .collect();
@@ -34,7 +36,7 @@ impl GroupsWidget {
             .highlight_style(
                 Style::default()
                     .add_modifier(Modifier::BOLD)
-                    .bg(THEME.bg_secondary()),
+                    .bg(theme.bg_secondary()),
             );
 
         frame.render_widget(tabs, area);
