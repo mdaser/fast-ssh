@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use serde::Deserialize;
@@ -36,10 +36,14 @@ macro_rules! def_theme_struct_with_defaults {
 }
 
 def_theme_struct_with_defaults!(
+    text_header => Color::Blue,
+    bg_header => Color::LightBlue,
     text_primary => Color::Blue,
-    text_secondary => Color::Black,
     bg_primary => Color::LightBlue,
+    text_secondary => Color::Black,
     bg_secondary => Color::LightBlue,
+    text_hosts => Color::Blue,
+    bg_hosts => Color::LightBlue,
     border_color => Color::Magenta
 );
 
