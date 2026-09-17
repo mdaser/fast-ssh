@@ -45,7 +45,7 @@ impl ConfigWidget {
         let mut spans = vec![Spans::from(Span::styled(
             "No item selected.\n",
             Style::default()
-                .fg(THEME.text_secondary())
+                .fg(THEME.secondary_fg())
                 .add_modifier(Modifier::BOLD),
         ))];
 
@@ -64,39 +64,39 @@ impl ConfigWidget {
         let mut spans = Vec::new();
 
         spans.push(Spans::from(vec![
-            Span::styled("Host ", Style::default().fg(THEME.text_primary())),
-            Span::styled(
-                &config.full_name,
-                Style::default().fg(THEME.text_secondary()),
-            ),
+            Span::styled("Host ", Style::default().fg(THEME.primary_fg())),
+            Span::styled(&config.full_name, Style::default().fg(THEME.secondary_fg())),
+            Span::styled("", Style::default()),
         ]));
 
         config.host_config.iter().for_each(|(key, value)| {
             spans.push(Spans::from(vec![
-                Span::styled("  ", Style::default().fg(THEME.text_primary())),
-                Span::styled(key.to_string(), Style::default().fg(THEME.text_primary())),
-                Span::styled(" ", Style::default().fg(THEME.text_secondary())),
-                Span::styled(value, Style::default().fg(THEME.text_secondary())),
+                Span::styled("  ", Style::default().fg(THEME.primary_fg())),
+                Span::styled(key.to_string(), Style::default().fg(THEME.primary_fg())),
+                Span::styled(" ", Style::default().fg(THEME.secondary_fg())),
+                Span::styled(value, Style::default().fg(THEME.secondary_fg())),
+                Span::styled("", Style::default()),
             ]));
         });
 
         if let Some(comment) = &config.comment {
             spans.push(Spans::from(vec![Span::styled(
                 "  Notes",
-                Style::default().fg(THEME.text_primary()),
+                Style::default().fg(THEME.primary_fg()),
             )]));
 
             for line in comment.lines() {
                 spans.push(Spans::from(vec![
-                    Span::styled("    ", Style::default().fg(THEME.text_primary())),
-                    Span::styled(line, Style::default().fg(THEME.text_secondary())),
+                    Span::styled("    ", Style::default().fg(THEME.primary_fg())),
+                    Span::styled(line, Style::default().fg(THEME.secondary_fg())),
+                    Span::styled("", Style::default()),
                 ]));
             }
         }
 
         spans.push(Spans::from(vec![Span::styled(
             "\n",
-            Style::default().fg(THEME.text_secondary()),
+            Style::default().fg(THEME.secondary_fg()),
         )]));
 
         spans

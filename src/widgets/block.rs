@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::THEME;
@@ -12,11 +12,8 @@ use tui::{
 pub fn new(title: &str) -> Block<'_> {
     Block::default()
         .borders(Borders::ALL)
-        .border_style(Style::default().fg(THEME.border_color()))
+        .border_style(Style::default().fg(THEME.border()))
         .title_alignment(tui::layout::Alignment::Center)
         .border_type(tui::widgets::BorderType::Rounded)
-        .title(Span::styled(
-            title,
-            Style::default().fg(THEME.text_secondary()),
-        ))
+        .title(Span::styled(title, Style::default().fg(THEME.title_fg())))
 }

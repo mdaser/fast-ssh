@@ -17,7 +17,9 @@ impl GroupsWidget {
     pub fn render(app: &App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
         let theme = &app.config.theme;
 
-        let block = block::new(" Groups ").title_alignment(tui::layout::Alignment::Left);
+        let block = block::new(" Groups ")
+            .title_alignment(tui::layout::Alignment::Left)
+            .style(Style::default().fg(theme.title_fg()));
         let titles = app
             .scs
             .groups
@@ -25,7 +27,7 @@ impl GroupsWidget {
             .map(|t| {
                 Spans::from(Span::styled(
                     t.name.to_string(),
-                    Style::default().fg(theme.text_secondary()),
+                    Style::default().fg(theme.select_fg()),
                 ))
             })
             .collect();
@@ -36,7 +38,8 @@ impl GroupsWidget {
             .highlight_style(
                 Style::default()
                     .add_modifier(Modifier::BOLD)
-                    .bg(theme.bg_secondary()),
+                    .fg(theme.select_active())
+                    .bg(theme.select_bg()),
             );
 
         frame.render_widget(tabs, area);

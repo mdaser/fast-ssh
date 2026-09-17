@@ -107,14 +107,17 @@ Fast-SSH has a few configuration options. You can find the configuration in :
 - Windows : `%APPDATA%/FastSSH/config.yaml`
 
 ```
-# This is the default configuration for FastSSH.
-
 theme:
-    text_primary: \"#000080\"
-    text_secondary: \"#000000\"
-    bg_primary: \"#d0d0d0\"
-    bg_secondary: \"#c0c0c0\"
-    border_color: \"#800080\"
+    border: \"#ff0000\"
+    primary_fg: \"#000080\"
+    primary_bg: \"#d0d0d0\"
+    secondary_fg: \"#0000ff\"
+    secondary_bg: \"#c0c0c0\"
+    title_fg: \"#000070\"
+    title_bg: \"#d0d0d0\"
+    select_fg: \"#0000ff\"
+    select_active: \"#000000\"
+    select_bg: \"#c0c0c0\"
 ```
 
 # Known issues

@@ -24,10 +24,12 @@ impl HostsWidget {
     pub fn render(app: &mut App, area: Rect, frame: &mut Frame<CrosstermBackend<Stdout>>) {
         let theme = &app.config.theme;
 
-        let block = block::new(" Hosts ").title_alignment(tui::layout::Alignment::Left);
+        let block = block::new(" Hosts ")
+            .title_alignment(tui::layout::Alignment::Left)
+            .style(Style::default().fg(theme.title_fg()));
         let header = HostsWidget::create_header(theme);
         let items = app.get_items_based_on_mode();
-        let rows = HostsWidget::create_rows_from_items(&items);
+        let rows = HostsWidget::create_rows_from_items(&items, theme);
 
         if app.host_state.selected().unwrap_or(0) >= items.len() {
             app.host_state.select(Some(0));
@@ -36,8 +38,13 @@ impl HostsWidget {
         let t = Table::new(rows)
             .header(header)
             .block(block)
-            .highlight_style(Style::default().fg(theme.text_hosts()).bg(theme.bg_hosts()))
-            .style(Style::default().fg(theme.text_hosts()))
+            .highlight_style(
+                Style::default()
+                    .add_modifier(Modifier::BOLD)
+                    .fg(theme.select_active())
+                    .bg(theme.select_bg()),
+            )
+            .style(Style::default().fg(theme.select_fg()))
             .highlight_symbol(">> ")
             .widths(&[
                 Constraint::Percentage(25),
@@ -54,7 +61,7 @@ impl HostsWidget {
             Cell::from(*h).style(
                 Style::default()
                     .add_modifier(Modifier::BOLD)
-                    .fg(theme.text_header()),
+                    .fg(theme.select_fg()),
             )
         });
 
@@ -64,8 +71,8 @@ impl HostsWidget {
             .bottom_margin(1)
     }
 
-    fn create_rows_from_items(items: &[&SshGroupItem]) -> Vec<Row<'static>> {
-        let style = Style::default();
+    fn create_rows_from_items(items: &[&SshGroupItem], theme: &Theme) -> Vec<Row<'static>> {
+        let style = Style::default().fg(theme.select_fg());
         items
             .iter()
             .map(|item| {

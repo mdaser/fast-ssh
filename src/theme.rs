@@ -36,15 +36,16 @@ macro_rules! def_theme_struct_with_defaults {
 }
 
 def_theme_struct_with_defaults!(
-    text_header => Color::Blue,
-    bg_header => Color::LightBlue,
-    text_primary => Color::Blue,
-    bg_primary => Color::LightBlue,
-    text_secondary => Color::Black,
-    bg_secondary => Color::LightBlue,
-    text_hosts => Color::Blue,
-    bg_hosts => Color::LightBlue,
-    border_color => Color::Magenta
+    border => Color::Magenta,
+    primary_fg => Color::Blue,
+    primary_bg => Color::LightBlue,
+    secondary_fg => Color::Black,
+    secondary_bg => Color::LightBlue,
+    title_fg => Color::Blue,
+    title_bg => Color::LightBlue,
+    select_fg => Color::Blue,
+    select_active => Color::Black,
+    select_bg => Color::LightBlue
 );
 
 fn hex_to_color(hex: &str) -> Option<Color> {

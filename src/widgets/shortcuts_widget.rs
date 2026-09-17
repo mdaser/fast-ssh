@@ -30,7 +30,7 @@ impl ShortcutsWidget {
         let paragraph = Paragraph::new(text)
             .alignment(tui::layout::Alignment::Left)
             .block(block)
-            .style(Style::default().fg(THEME.text_secondary()))
+            .style(Style::default().fg(THEME.secondary_fg()))
             .wrap(Wrap { trim: true });
 
         frame.render_widget(paragraph, area);
