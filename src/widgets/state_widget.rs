@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::app::App;
@@ -21,7 +21,7 @@ impl StateWidget {
 
         let paragraph = Paragraph::new(empty_span)
             .block(block)
-            .style(Style::default().fg(THEME.text_primary()))
+            .style(Style::default().fg(THEME.primary_fg()))
             .alignment(tui::layout::Alignment::Left);
 
         frame.render_widget(paragraph, area);

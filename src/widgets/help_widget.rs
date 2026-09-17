@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::app::App;
@@ -21,7 +21,7 @@ impl HelpWidget {
 
         let paragraph = Paragraph::new(help_span)
             .block(block)
-            .style(Style::default().fg(THEME.text_secondary()))
+            .style(Style::default().fg(THEME.secondary_fg()))
             .alignment(tui::layout::Alignment::Center);
 
         frame.render_widget(paragraph, area);

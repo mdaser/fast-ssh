@@ -33,7 +33,7 @@ impl TitleWidget {
 
         let paragraph = Paragraph::new(empty_span)
             .block(block)
-            .style(Style::default().fg(THEME.text_primary()))
+            .style(Style::default().fg(THEME.primary_fg()))
             .alignment(tui::layout::Alignment::Left);
 
         frame.render_widget(paragraph, area);

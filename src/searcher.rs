@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025 by Martin Daser
+// Copyright (C) 2025, 2026 by Martin Daser
 //
 
 use crate::{app::App, ssh_config_store::SshGroupItem, widgets::block, THEME};
@@ -57,7 +57,7 @@ impl Searcher {
         let block = block::new(" Search ");
 
         let spans = Spans::from(vec![
-            Span::styled(" > ", Style::default().fg(THEME.text_primary())),
+            Span::styled(" > ", Style::default().fg(THEME.primary_fg())),
             Span::styled(
                 &self.search_string,
                 Style::default().add_modifier(Modifier::BOLD),
