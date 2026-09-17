@@ -32,13 +32,16 @@ pub fn handle_inputs(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
                     app.set_state(AppState::ForkSsh)
                 }
             }
-            KeyCode::Char('p') | KeyCode::Char('P') => match app.get_selected_item() {
-                Some(host) => app.set_state(AppState::Ping(
-                    host.name.clone(),
-                    key.code == KeyCode::Char('P'),
-                )),
-                _ => app.set_state(AppState::Normal(false)),
-            },
+            KeyCode::Char('p') | KeyCode::Char('P') => {
+                app.help_off();
+                match app.get_selected_item() {
+                    Some(host) => app.set_state(AppState::Ping(
+                        host.name.clone(),
+                        key.code == KeyCode::Char('P'),
+                    )),
+                    _ => app.set_state(AppState::Normal(false)),
+                }
+            }
             _ => {}
         };
     }
