@@ -179,6 +179,10 @@ impl App {
         self.show_help = !self.show_help;
     }
 
+    pub fn help_off(&mut self) {
+        self.show_help = false;
+    }
+
     pub fn show_help(&self) -> bool {
         self.show_help
     }
