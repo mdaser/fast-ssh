@@ -108,17 +108,23 @@ Fast-SSH has a few configuration options. You can find the configuration in :
 
 ```
 theme:
-    border: \"#ff0000\"
-    primary_fg: \"#000080\"
-    primary_bg: \"#d0d0d0\"
-    secondary_fg: \"#0000ff\"
-    secondary_bg: \"#c0c0c0\"
-    title_fg: \"#000070\"
-    title_bg: \"#d0d0d0\"
-    select_fg: \"#0000ff\"
-    select_active: \"#000000\"
-    select_bg: \"#c0c0c0\"
+    border: "#ff0000"
+    primary_fg: "#000080"
+    primary_bg: "#d0d0d0"
+    secondary_fg: "#0000ff"
+    secondary_bg: "#c0c0c0"
+    title_fg: "#000070"
+    title_bg: "#d0d0d0"
+    select_fg: "#0000ff"
+    select_active: "#000000"
+    select_bg: "#c0c0c0"
 ```
+
+### Define Color Codes
+
+You may find tools and web pages which assist in creating RGB color codes, e.g.
+
+[RGB to Hex Color Converter](https://www.rapidtables.com/convert/color/rgb-to-hex.html)
 
 # Known issues
 If you are a user of the new Windows terminal and you encounter raw ANSI escape sequences when you run fast-ssh, you must unset the TERM environment variable before running the application. Read more about this here : https://github.com/crossterm-rs/crossterm/issues/580
